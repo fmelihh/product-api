@@ -1,0 +1,100 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "CRUD Operations for the products",
+        "title": "Product API",
+        "termsOfService": "http://swagger.io/terms/",
+        "contact": {
+            "name": "API Support",
+            "url": "http://www.swagger.io/support",
+            "email": "support@swagger.io"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        },
+        "version": "1.0"
+    },
+    "host": "localhost:8000",
+    "paths": {
+        "/product": {
+            "post": {
+                "description": "insert product",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Insert Product",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/product/": {
+            "put": {
+                "description": "update inserted product",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update Product",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete inserted product",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete Product",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        },
+        "/product/list": {
+            "get": {
+                "description": "list inserted products",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "List Products",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/main.Product"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/product/{product-id}": {
+            "get": {
+                "description": "get product",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Get Product",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "main.Product": {
+            "type": "object"
+        }
+    }
+}
