@@ -5,7 +5,7 @@ import (
 	"log"
 	"net/http"
 
-	_ "product-api-go/cmd/product-service/docs"
+	_ "product-api-go/api/docs"
 
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
