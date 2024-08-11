@@ -1,3 +1,4 @@
+// Package product provides product-related API endpoints.
 package product
 
 import (
@@ -17,6 +18,12 @@ func NewHandler(service *Service) *Handler {
 	}
 }
 
+// @Summary CREATE Product
+// @Description insert product
+// @Param product body Product true "Product Data"
+// @Produce  json
+// @Success 200
+// @Router /product [post]
 func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var input struct {
 		Name        string  `json:"name"`
@@ -42,6 +49,11 @@ func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(product)
 }
 
+// @Summary Get Product
+// @Description get product
+// @Produce  json
+// @Success 200
+// @Router /product/{product-id} [get]
 func (h *Handler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -56,6 +68,11 @@ func (h *Handler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(product)
 }
 
+// @Summary List Products
+// @Description list inserted products
+// @Produce  json
+// @Success 200 {array} Product
+// @Router /product/list [get]
 func (h *Handler) ListProducts(w http.ResponseWriter, r *http.Request) {
 	products, err := h.service.ListProducts()
 	if err != nil {
@@ -66,6 +83,11 @@ func (h *Handler) ListProducts(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(products)
 }
 
+// @Summary Update Product
+// @Description update inserted product
+// @Produce  json
+// @Success 200
+// @Router /product/ [put]
 func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -93,6 +115,11 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(product)
 }
 
+// @Summary Delete Product
+// @Description delete inserted product
+// @Produce  json
+// @Success 200
+// @Router /product/ [delete]
 func (h *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]

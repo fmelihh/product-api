@@ -1,6 +1,7 @@
 package routes
 
 import (
+	"fmt"
 	"net/http"
 	"product-api-go/internal/product"
 
@@ -13,4 +14,6 @@ func RegisterProductRoutes(router *mux.Router, handler *product.Handler) {
 	router.HandleFunc("/products/{id}", handler.GetProduct).Methods(http.MethodGet)
 	router.HandleFunc("/products/{id}", handler.UpdateProduct).Methods(http.MethodPut)
 	router.HandleFunc("/products/{id}", handler.DeleteProduct).Methods(http.MethodDelete)
+
+	fmt.Println("all product routes are registered")
 }
