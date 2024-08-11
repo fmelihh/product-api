@@ -25,6 +25,24 @@ const docTemplate = `{
     "basePath": "{{.BasePath}}",
     "paths": {
         "/products": {
+            "get": {
+                "description": "list inserted products",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "List Products",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/product.Product"
+                            }
+                        }
+                    }
+                }
+            },
             "put": {
                 "description": "update inserted product",
                 "produces": [
@@ -67,26 +85,6 @@ const docTemplate = `{
                 }
             }
         },
-        "/products/list": {
-            "get": {
-                "description": "list inserted products",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "List Products",
-                "responses": {
-                    "200": {
-                        "description": "OK",
-                        "schema": {
-                            "type": "array",
-                            "items": {
-                                "$ref": "#/definitions/product.Product"
-                            }
-                        }
-                    }
-                }
-            }
-        },
         "/products/{id}": {
             "get": {
                 "description": "get product",
@@ -115,6 +113,15 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "summary": "Delete Product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "OK"

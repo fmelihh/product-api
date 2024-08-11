@@ -74,7 +74,7 @@ func (h *Handler) GetProduct(w http.ResponseWriter, r *http.Request) {
 // @Description list inserted products
 // @Produce  json
 // @Success 200 {array} Product
-// @Router /products/list [get]
+// @Router /products [get]
 func (h *Handler) ListProducts(w http.ResponseWriter, r *http.Request) {
 	products, err := h.service.ListProducts()
 	if err != nil {
@@ -118,6 +118,7 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 }
 
 // @Summary Delete Product
+// @Param id path string true "Product ID"
 // @Description delete inserted product
 // @Produce  json
 // @Success 200
