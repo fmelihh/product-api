@@ -24,9 +24,24 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/product": {
+        "/products": {
+            "put": {
+                "description": "update inserted product",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Update Product",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
             "post": {
                 "description": "insert product",
+                "consumes": [
+                    "application/json"
+                ],
                 "produces": [
                     "application/json"
                 ],
@@ -44,38 +59,15 @@ const docTemplate = `{
                 ],
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/product.Product"
+                        }
                     }
                 }
             }
         },
-        "/product/": {
-            "put": {
-                "description": "update inserted product",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Update Product",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            },
-            "delete": {
-                "description": "delete inserted product",
-                "produces": [
-                    "application/json"
-                ],
-                "summary": "Delete Product",
-                "responses": {
-                    "200": {
-                        "description": "OK"
-                    }
-                }
-            }
-        },
-        "/product/list": {
+        "/products/list": {
             "get": {
                 "description": "list inserted products",
                 "produces": [
@@ -95,13 +87,34 @@ const docTemplate = `{
                 }
             }
         },
-        "/product/{product-id}": {
+        "/products/{id}": {
             "get": {
                 "description": "get product",
                 "produces": [
                     "application/json"
                 ],
                 "summary": "Get Product",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Product ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    }
+                }
+            },
+            "delete": {
+                "description": "delete inserted product",
+                "produces": [
+                    "application/json"
+                ],
+                "summary": "Delete Product",
                 "responses": {
                     "200": {
                         "description": "OK"

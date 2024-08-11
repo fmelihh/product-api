@@ -21,9 +21,10 @@ func NewHandler(service *Service) *Handler {
 // @Summary CREATE Product
 // @Description insert product
 // @Param product body Product true "Product Data"
+// @Accept json
 // @Produce  json
-// @Success 200
-// @Router /product [post]
+// @Success 200 {object} Product
+// @Router /products [post]
 func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 	var input struct {
 		Name        string  `json:"name"`
@@ -51,9 +52,10 @@ func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 // @Summary Get Product
 // @Description get product
+// @Param id path string true "Product ID"
 // @Produce  json
 // @Success 200
-// @Router /product/{product-id} [get]
+// @Router /products/{id} [get]
 func (h *Handler) GetProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -72,7 +74,7 @@ func (h *Handler) GetProduct(w http.ResponseWriter, r *http.Request) {
 // @Description list inserted products
 // @Produce  json
 // @Success 200 {array} Product
-// @Router /product/list [get]
+// @Router /products/list [get]
 func (h *Handler) ListProducts(w http.ResponseWriter, r *http.Request) {
 	products, err := h.service.ListProducts()
 	if err != nil {
@@ -87,7 +89,7 @@ func (h *Handler) ListProducts(w http.ResponseWriter, r *http.Request) {
 // @Description update inserted product
 // @Produce  json
 // @Success 200
-// @Router /product/ [put]
+// @Router /products [put]
 func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]
@@ -119,7 +121,7 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 // @Description delete inserted product
 // @Produce  json
 // @Success 200
-// @Router /product/ [delete]
+// @Router /products/{id} [delete]
 func (h *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	id := vars["id"]

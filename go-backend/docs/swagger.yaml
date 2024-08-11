@@ -34,8 +34,10 @@ info:
   title: Product API
   version: "1.0"
 paths:
-  /product:
+  /products:
     post:
+      consumes:
+      - application/json
       description: insert product
       parameters:
       - description: Product Data
@@ -49,16 +51,9 @@ paths:
       responses:
         "200":
           description: OK
+          schema:
+            $ref: '#/definitions/product.Product'
       summary: CREATE Product
-  /product/:
-    delete:
-      description: delete inserted product
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-      summary: Delete Product
     put:
       description: update inserted product
       produces:
@@ -67,16 +62,30 @@ paths:
         "200":
           description: OK
       summary: Update Product
-  /product/{product-id}:
+  /products/{id}:
+    delete:
+      description: delete inserted product
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+      summary: Delete Product
     get:
       description: get product
+      parameters:
+      - description: Product ID
+        in: path
+        name: id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
         "200":
           description: OK
       summary: Get Product
-  /product/list:
+  /products/list:
     get:
       description: list inserted products
       produces:
