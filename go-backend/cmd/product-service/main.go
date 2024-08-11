@@ -6,6 +6,8 @@ import (
 	"net/http"
 
 	_ "product-api-go/api/docs"
+	"product-api-go/api/routes"
+	"product-api-go/internal/product"
 
 	"github.com/gorilla/mux"
 	httpSwagger "github.com/swaggo/http-swagger"
@@ -83,12 +85,11 @@ func main() {
 	router := mux.NewRouter().StrictSlash(true)
 	router.PathPrefix("/docs/").Handler(httpSwagger.WrapHandler)
 
-	productRouter := router.PathPrefix("/products/").Subrouter()
-	productRouter.HandleFunc("", AddProduct).Methods("POST")
-	productRouter.HandleFunc("", UpdateProduct).Methods("PUT")
-	productRouter.HandleFunc("/list", ListProduct).Methods("GET")
-	productRouter.HandleFunc("", DeleteProduct).Methods("DELETE")
-	productRouter.HandleFunc("/{productID}", GetProduct).Methods("GET")
+	repo := product.NewInMemoryRepository()
+	service := product.NewService(repo)
+	productHandler := product.NewHandler(service)
+
+	routes.RegisterProductRoutes(router, productHandler)
 
 	log.Println("Server Starting on 8000")
 	err := http.ListenAndServe(":8000", router)
