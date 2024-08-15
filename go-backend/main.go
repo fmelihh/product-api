@@ -6,6 +6,7 @@ import (
 
 	"product-api-go/api/routes"
 	_ "product-api-go/docs"
+	"product-api-go/internal/db"
 	"product-api-go/internal/product"
 
 	"github.com/gorilla/mux"
@@ -36,8 +37,15 @@ func main() {
 
 	routes.RegisterProductRoutes(router, productHandler)
 
+	// database initialization
+	err := db.InitDatabase(":memory:")
+	if err != nil {
+		log.Fatal("There's error with the server", err)
+		return
+	}
+
 	log.Println("Server Starting on 8000")
-	err := http.ListenAndServe(":8000", router)
+	err = http.ListenAndServe(":8000", router)
 	if err != nil {
 		log.Fatalln("There's an error with the server", err)
 	}
